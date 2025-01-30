@@ -1,7 +1,7 @@
 package com.generation.blogpessoal.security;
 
 import java.awt.RenderingHints.Key;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService {
 
-	public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+	public static final String SECRET = "8TIVh4Ake6VcdJ/C5El1g7WsCUMlHOxf6aLDtjTl849i3uyLrIYMCXhGoXz+IPL3\n";
 
 	private Key getSignKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
@@ -46,7 +46,7 @@ public class JwtService {
 	}
 
 	private Boolean isTokenExpired(String token) {
-		return extractExpiration(token).before(new Date(0));
+		return extractExpiration(token).before(new Date());
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {

@@ -19,8 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import jakarta.servlet.Filter;
-
 @Configuration
 @EnableWebSecurity
 public class BasicSecurityConfig {
@@ -70,7 +68,7 @@ public class BasicSecurityConfig {
 	                .requestMatchers(HttpMethod.OPTIONS).permitAll()
 	                .anyRequest().authenticated())
 	        .authenticationProvider(authenticationProvider())
-	        .addFilterBefore((Filter) authFilter, UsernamePasswordAuthenticationFilter.class)
+	        .addFilterBefore( authFilter, UsernamePasswordAuthenticationFilter.class)
 	        .httpBasic(withDefaults());
 
 		return http.build();

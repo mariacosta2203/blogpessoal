@@ -18,7 +18,7 @@ import com.generation.blogpessoal.security.JwtService;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -60,30 +60,23 @@ public class UsuarioService {
 
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
         
-        // Gera o Objeto de autenticação
 		var credenciais = new UsernamePasswordAuthenticationToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha());
 		
-        // Autentica o Usuario
 		Authentication authentication = authenticationManager.authenticate(credenciais);
         
-        // Se a autenticação foi efetuada com sucesso
 		if (authentication.isAuthenticated()) {
 
-            // Busca os dados do usuário
 			Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
-            // Se o usuário foi encontrado
 			if (usuario.isPresent()) {
 
-                // Preenche o Objeto usuarioLogin com os dados encontrados 
-			   usuarioLogin.get().setId(usuario.get().getId());
+				usuarioLogin.get().setId(usuario.get().getId());
                 usuarioLogin.get().setNome(usuario.get().getNome());
                 usuarioLogin.get().setFoto(usuario.get().getFoto());
                 usuarioLogin.get().setToken(gerarToken(usuarioLogin.get().getUsuario()));
                 usuarioLogin.get().setSenha("");
-				
-                 // Retorna o Objeto preenchido
-			   return usuarioLogin;
+								
+				return usuarioLogin;
 			
 			}
 
@@ -105,5 +98,4 @@ public class UsuarioService {
 		return "Bearer " + jwtService.generateToken(usuario);
 	}
 
-	
 }
